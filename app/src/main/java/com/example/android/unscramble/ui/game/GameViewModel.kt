@@ -30,6 +30,7 @@ import androidx.savedstate.SavedStateRegistryOwner
 import com.example.android.unscramble.data.GameRepository
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
@@ -62,9 +63,9 @@ fun <T> SavedStateHandle.getMutableStateFlow(key: String, initialValue: T): Sava
     return SavableMutableStateFlow(this, key, initialValue)
 }
 
-// savedStateHandle 이건 따로 찾아서 처리...
-class GameViewModel @AssistedInject constructor(
-    @Assisted private val savedStateHandle: SavedStateHandle,
+@HiltViewModel
+class GameViewModel @Inject constructor(
+    private val savedStateHandle: SavedStateHandle,
     private val gameRepository: GameRepository
 ) : ViewModel() {
 
